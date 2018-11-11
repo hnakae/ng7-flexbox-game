@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  appTitle: string = 'myapp';
+  appTitle: string = 'Reversi';
 
   constructor() { }
 
