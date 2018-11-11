@@ -52,11 +52,15 @@ body {
     transition: background 225ms;
 }
 
-@media (max-width: 1200px) {
-    #headingGroup h1 {
-        font-weight: 100;
-        font-size: 3rem;
-    }
+.container {
+    margin-bottom: 50px;
 }
+
+// @media (max-width: 1200px) {
+//     #headingGroup h1 {
+//         font-weight: 100;
+//         font-size: 3rem;
+//     }
+// }
 
 

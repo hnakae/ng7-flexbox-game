@@ -1,0 +1,64 @@
+.grid {
+    margin: 0 auto;
+    width: 80vw;
+    max-width: 60vh;
+    height: 80vw;
+    max-height: 60vh;
+    font-size: 1rem;
+}
+.row {
+    display: flex;
+}
+.box {
+    background: tomato;
+    border: 2px solid red;
+    margin: 5px;
+    color: red;
+    font-weight: bold;
+    flex: 1 0 auto;
+    position: relative;
+}
+
+
+
+.box:after {
+    content: "";
+    float:left;
+    display: block;
+    padding-top: 100%;
+}
+.box .inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.default-start-w {
+    background: white;
+}
+
+.default-start-b {
+    background: black;
+}
+
+.black {
+    background: black;
+    display: block;
+}
+.white {
+    background: white;
+    display: block;
+}
+
