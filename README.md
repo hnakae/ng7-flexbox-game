@@ -20,4 +20,4 @@ Follow these steps to get this app set up on your computer!
 
 6. -> ng serve -o (will automatically open browser)
 
-7. May need to refresh for javascript to work... 
+
