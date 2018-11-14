@@ -1,27 +1,23 @@
-# Ng7Flexbox
+READ ME
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
+Follow these steps to get this app set up on your computer!
 
-## Development server
+1. click on 'Clone or download'
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+2. copy the URL
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+3. in terminal, go to project folder (e.g. /User/Projects) and enter git clone and then paste the URL in. 
+   -> git clone URL 
+    
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+4. cd into newly created directory, e.g. /User/Projects/ng7-flexbox-game
+  -> cd ng7-flexbox-game
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+5. -> npm install
 
-## Running end-to-end tests
+6. -> ng serve -o (will automatically open browser)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+7. May need to refresh for javascript to work... 
