@@ -14,6 +14,7 @@ Follow these steps to get this app set up on your computer!
 
 5. -> npm install
 
+<<<<<<< HEAD
 6. -> ng serve -o 
 
 ------------NOTES-------------
@@ -37,3 +38,8 @@ export class Customer{
   FirstName: string
   LastName: string;
 }
+=======
+6. -> ng serve -o (will automatically open browser)
+
+
+>>>>>>> 8588abce41fd88d09d2c1259ef1307ed6e863730
