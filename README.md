@@ -8,16 +8,32 @@ Follow these steps to get this app set up on your computer!
 
 
 
-3. in terminal, go to project folder (e.g. /User/Projects) and enter git clone and then paste the URL in. 
-   -> git clone URL 
-    
+3. -> git clone URL 
 
-
-4. cd into newly created directory, e.g. /User/Projects/ng7-flexbox-game
-  -> cd ng7-flexbox-game
+4. -> cd ng7-flexbox-game
 
 5. -> npm install
 
-6. -> ng serve -o (will automatically open browser)
+6. -> ng serve -o 
 
-7. May need to refresh for javascript to work... 
+------------NOTES-------------
+Interpolation
+@Component({
+  selector: 'my-selector',
+  template: '
+  <h1>{{customer.FirstName}} Details</h1>
+  <div>First: {{customer.FirstName}}</div>
+  <div>Last: {{customer.FirstName}}</div>
+  '
+})
+export class DemoComponent {
+  id = 1;
+  customer: Customer = {
+    FirstName = 'abc';
+    LastName = 'xyz';
+  }
+}
+export class Customer{
+  FirstName: string
+  LastName: string;
+}
