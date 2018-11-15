@@ -11,6 +11,7 @@ export class PlayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //Redo this in Typescript
     $(document).ready(function () {
 
       var move = 1;
@@ -25,6 +26,12 @@ export class PlayComponent implements OnInit {
             $(this).toggleClass("white");
           }
           move++;
+          //GAME LOGIC PSEUDOCODE
+          //tile object
+          //tile id
+          //tile color status black/white/other
+          //tile click status 
+          //
         }
       });
 
@@ -32,7 +39,7 @@ export class PlayComponent implements OnInit {
         location.reload();
       });
 
-      $(".changebgc").click(function () {
+      $(".changeColors").click(function () {
         var myColorsArray = ["turquoise", "pink", "lightgray"];
         var tileColorsArray = ["cyan", "darkcyan", "bluegreen"];
         var arrayLength = myColorsArray.length;
