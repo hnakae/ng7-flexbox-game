@@ -220,19 +220,17 @@
 
 <div class="buttons">
     <div class="d-flex justify-content-center align-items-end">
-        <button class="btn btn-info btn-lg reset">Reset</button>
+        <button (click)="aMethod($event)" class="btn btn-info btn-lg reset">Reset</button>
         <button class="btn btn-info btn-lg changeColors">Change Colors</button>
     </div>
 </div>
-
+<!-- $event -->
 <table class="grid">
-
     <tr class="row" *ngFor="let row of board;">
         <td class="box" *ngFor="let cell of row;">
-            <div class="inner" *ngIf="isFirst">default</div>
+            <div (click)="anotherMethod()" class="inner" *ngIf="isFirst">default</div>
         </td>
     </tr>
-
 </table>
 
 
