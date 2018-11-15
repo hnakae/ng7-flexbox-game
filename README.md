@@ -14,6 +14,7 @@ Follow these steps to get this app set up on your computer!
 
 5. -> npm install
 
-6. -> ng serve -o 
+6. -> npm i -g @angular/cli@latest
 
+7. -> ng serve -o
 
