@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
+class Cell {
+  constructor(public rowIdx, public colIdx) {  }
+}
+
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
@@ -8,8 +12,28 @@ import * as $ from 'jquery';
 })
 export class PlayComponent implements OnInit {
 
-  constructor() { }
+  board: Cell[][];
+  
+  constructor() {
+    this.board = this.createBoard();
+  }
 
+  createBoard() {
+    const board = [];
+    function createRow(rowIdx) {
+      var row = [];
+      for (let colIdx = 0; colIdx < 8; colIdx++) {
+        const cell = new Cell(rowIdx, colIdx);
+        row.push(cell);
+      }
+      return row;
+    }
+    for (let rowIdx = 0; rowIdx < 8; rowIdx++) {
+      var row = createRow(rowIdx);
+      board.push(row);
+    }
+    return board; 
+  }
   ngOnInit() {
     //Redo this in Typescript
     $(document).ready(function () {
@@ -31,6 +55,8 @@ export class PlayComponent implements OnInit {
           //tile id
           //tile color status black/white/other
           //tile click status 
+          //
+
           //
         }
       });
