@@ -3,16 +3,16 @@ import * as $ from 'jquery';
 
 class Cell {
   constructor(public rowIdx, public colIdx) { }
-  defaultColor: "lightblue";
-  colorStatus: "default";
-  clickStatus: "0";
-  clicked(){
-    console.log("clicked");
-  }
-  setColor(){
-    //set 
-    console.log("set color depending on who's turn");
-  }
+  // defaultColor: "lightblue";
+  // colorStatus: "default";
+  // clickStatus: "0";
+  // clicked(){
+  //   console.log("clicked");
+  // }
+  // setColor(){
+  //   //set 
+  //   console.log("set color depending on who's turn");
+  // }
 
 }
 //tile object
@@ -50,45 +50,45 @@ export class PlayComponent implements OnInit {
     return board;
   }
 
-  resetBoard() {
+  // resetBoard() {
 
-    for (let colIdx = 0; colIdx < 8; colIdx++) {
+  //   for (let colIdx = 0; colIdx < 8; colIdx++) {
       
-    }
+  //   }
      
-    for(let rowIdx = 0; rowIdx < 8; rowIdx++) {
-      var row = createRow(rowIdx);
-      board.push(row);
-    }
+  //   for(let rowIdx = 0; rowIdx < 8; rowIdx++) {
+  //     var row = createRow(rowIdx);
+  //     board.push(row);
+  //   }
 
-  }
+  // }
 
   ngOnInit() {
     //Redo this in Typescript
     $(document).ready(function () {
 
-      // var move = 1;
-      // var play = true;
+      var move = 1;
+      var play = true;
 
-      // $("div.inner").click(function () {
-      //   if ($(this).text() == "" && play) {
-      //     if ((move % 2) == 1) {
-      //       $(this).toggleClass("black");
-      //     }
-      //     else {
-      //       $(this).toggleClass("white");
-      //     }
-      //     move++;
-      //     //GAME LOGIC PSEUDOCODE
-      //     //tile object
-      //     //tile id
-      //     //tile color status black/white/other
-      //     //tile click status 
-      //     //
+      $("div.inner").click(function () {
+        if ($(this).text() == "" && play) {
+          if ((move % 2) == 1) {
+            $(this).toggleClass("black");
+          }
+          else {
+            $(this).toggleClass("white");
+          }
+          move++;
+          //GAME LOGIC PSEUDOCODE
+          //tile object
+          //tile id
+          //tile color status black/white/other
+          //tile click status 
+          //
 
-      //     //
-      //   }
-      // });
+          //
+        }
+      });
 
       $(".reset").click(function () {
         location.reload();

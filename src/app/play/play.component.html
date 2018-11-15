@@ -4,234 +4,24 @@
     </div>
 
 
-
-    <div class="grid">
-        <div class="row">
-            <div class="box">
+    <table class="grid">
+        <tr class="row" *ngFor="let row of board;">
+            <td class="box" *ngFor="let cell of row;">
                 <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner default-start-w"></div>
-            </div>
-            <div class="box">
-                <div class="inner default-start-b"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner default-start-b"></div>
-            </div>
-            <div class="box">
-                <div class="inner default-start-w"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-            <div class="box">
-                <div class="inner"></div>
-            </div>
-        </div>
-
-    </div>
+            </td>
+        </tr>
+    </table>
+    
 </div>
 
 <div class="buttons">
     <div class="d-flex justify-content-center align-items-end">
-        <button (click)="aMethod($event)" class="btn btn-info btn-lg reset">Reset</button>
+        <button class="btn btn-info btn-lg reset">Reset</button>
         <button class="btn btn-info btn-lg changeColors">Change Colors</button>
     </div>
 </div>
 <!-- $event -->
-<table class="grid">
-    <tr class="row" *ngFor="let row of board;">
-        <td class="box" *ngFor="let cell of row;">
-            <div (click)="anotherMethod()" class="inner" *ngIf="isFirst">default</div>
-        </td>
-    </tr>
-</table>
+
 
 
    
