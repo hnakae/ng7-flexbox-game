@@ -1,11 +1,11 @@
 <div class="container">
     <div class="header">
-        <h1 class="text-center display-4">Reversi</h1>
+        <h1 class="text-center display-4">{{title}}</h1>
     </div>
     <table class="grid">
         <tr class="row" *ngFor="let row of board;">
             <td class="box" *ngFor="let cell of row;">
-                <div class="inner"></div>
+                <div (click)="clicked()" class="inner"></div>
             </td>
         </tr>
     </table>
