@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
 class Cell {
-<<<<<<< HEAD
   rowIdx;
   colIdx;
+  id;
   defaultColor = "tomato";
   colorStatus;
   clickStatus : boolean;
@@ -14,22 +14,30 @@ class Cell {
     this.colIdx = colIdx;
   }
   //current color black, white, or other
-  setColorStatus() {
+  // setId(rowIdx, colIdx){
+  //   let list = [rowIdx];
+  //   let list2 = [colIdx];
+  //   for (let i in list) {
+  //     let count = 0;
+  //     for (let j in list2) {
+  //       count++;
+  //     }
+  //     console.log(count);
+  //   }
     
+  // }
+  // getId(){
+  //   console.log()
+  // }
+  // resetAll() {
+    
+  // }
+  initialClick(){
+    let clickStatus = true;
   }
-=======
-  constructor(public rowIdx, public colIdx) { }
-  // defaultColor: "lightblue";
-  // colorStatus: "default";
-  // clickStatus: "0";
-  // clicked(){
-  //   console.log("clicked");
+  // switchColor(){
+
   // }
-  // setColor(){
-  //   //set 
-  //   console.log("set color depending on who's turn");
-  // }
->>>>>>> 116c306a8ad4ca5a963f3d16c6ca25b157989f6f
 
 
 }
@@ -57,6 +65,7 @@ export class PlayComponent implements OnInit {
       var row = [];
       for (let colIdx = 0; colIdx < 8; colIdx++) {
         const cell = new Cell(rowIdx, colIdx);
+        // cell.setId(rowIdx, colIdx);
         row.push(cell);
       }
       return row;
@@ -85,23 +94,33 @@ export class PlayComponent implements OnInit {
     //Redo this in Typescript
     $(document).ready(function () {
 
-      var move = 1;
-      var play = true;
+      let move = 1;
+      let play = true;
 
       $("div.inner").click(function () {
         if ($(this).text() == "" && play) {
-          if ((move % 2) == 1) {
-            $(this).toggleClass("black");
-          }
-          else {
-            $(this).toggleClass("white");
-          }
+          //Ternary Operator
+          (((move % 2) == 1) ? $(this).toggleClass("black") : $(this).toggleClass("white"));
+         
+          //Replaced by ternary operator
+          // if ((move % 2) == 1) {
+          //   $(this).toggleClass("black");
+          // }
+          // else {
+          //   $(this).toggleClass("white");
+          // }
           move++;
+
+
+
+
           //GAME LOGIC PSEUDOCODE
           //tile object
           //tile id
           //tile color status black/white/other
+
           //tile click status 
+
           //
 
           //
@@ -129,7 +148,7 @@ export class PlayComponent implements OnInit {
     $(function () {
       $(document).scroll(function () {
         var $nav = $("#mainNavbar");
-        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height()/2);
       })
     })
   }
