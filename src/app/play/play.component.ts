@@ -2,17 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
 class Cell {
-  constructor(public rowIdx, public colIdx) { }
-  defaultColor: "lightblue";
-  colorStatus: "default";
-  clickStatus: "0";
-  clicked(){
-    console.log("clicked");
+  rowIdx;
+  colIdx;
+  defaultColor = "tomato";
+  colorStatus;
+  clickStatus : boolean;
+
+  constructor(rowIdx, colIdx) { 
+    this.rowIdx = rowIdx;
+    this.colIdx = colIdx;
   }
-  setColor(){
-    //set 
-    console.log("set color depending on who's turn");
+  //current color black, white, or other
+  setColorStatus() {
+    
   }
+
 
 }
 //tile object
@@ -50,18 +54,18 @@ export class PlayComponent implements OnInit {
     return board;
   }
 
-  resetBoard() {
+  // resetBoard() {
 
-    for (let colIdx = 0; colIdx < 8; colIdx++) {
+  //   for (let colIdx = 0; colIdx < 8; colIdx++) {
       
-    }
+  //   }
      
-    for(let rowIdx = 0; rowIdx < 8; rowIdx++) {
-      var row = createRow(rowIdx);
-      board.push(row);
-    }
+  //   for(let rowIdx = 0; rowIdx < 8; rowIdx++) {
+  //     var row = createRow(rowIdx);
+  //     board.push(row);
+  //   }
 
-  }
+  // }
 
   ngOnInit() {
     //Redo this in Typescript
