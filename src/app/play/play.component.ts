@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
-class Cell {
-  constructor(public rowIdx, public colIdx){ 
-
-  }
-}
+import { Board, OthelloSimulator, State, Stone } from './othello.component';
 
 @Component({
   selector: 'app-play',
@@ -13,88 +8,49 @@ class Cell {
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
-
-  board: Cell[][];
-  clickStatus: boolean = false;
+  board: Board;
+  state: State;
 
   constructor() {
-    this.board = this.createBoard();
+    this.board = new Board();
+    this.state = 'black';
   }
 
-    
-  clicked() {
-    if (this.clickStatus = false) {
-      console.log("as simple as possible");
-    }
-  }
-
-  createBoard() {
-    const board = [];
-    function createRow(rowIdx) {
-      var row = [];
-      for (let colIdx = 0; colIdx < 8; colIdx++) {
-        const cell = new Cell(rowIdx, colIdx);
-        // cell.setId(rowIdx, colIdx);
-        row.push(cell);
-      }
-      return row;
-    }
-    for (let rowIdx = 0; rowIdx < 8; rowIdx++) {
-      var row = createRow(rowIdx);
-      board.push(row);
-    }
-    return board;
-  }
   ngOnInit() {
-     
-    //Redo this in Typescript
-    $(document).ready(function () {
-
-      let move = 1;
-      let play = true;
-
-      
-
-      $("div.inner").click(function () {
-        if ($(this).text() == "" && play) {
-          //----MAKE/USE THESE FUNCTIONS, NO TYPESCRIPT NO CLASSES JUST JQUERY
-          //CHECK IF ADJACENT IS OPPOSITE COLOR
-            //CHECK LEFT, RIGHT, UP, DOWN, +- 1,X  +- 1,Y
-          //CHECK IF PINCHED
-            //IF CLICK ON FRESH TILE ADJACENT, CHECK IF THAT TILE IS 
-            //ADJACENT TO CLICK COLOR
-              //IF SO, FLIP ALL THAT ARE PINCHED
-        
-          (((move % 2) == 1) ? $(this).toggleClass("black") : $(this).toggleClass("white"));
-          move++;
-          
-        }
-      });
-
-      $(".reset").click(function () {
-        location.reload();
-      });
-
-      $(".changeColors").click(function () {
-        var myColorsArray = ["turquoise", "pink", "lightgray"];
-        var tileColorsArray = ["cyan", "darkcyan", "bluegreen"];
-        var arrayLength = myColorsArray.length;
-
-        var rand = myColorsArray[Math.floor(Math.random() * arrayLength)];
-        var tilerand = tileColorsArray[Math.floor(Math.random() * arrayLength)];
-
-        $("body").css("background", rand);
-        $(".box").css("background", tilerand);
-      });
-
-    });
-
-    $(function () {
-      $(document).scroll(function () {
-        var $nav = $("#mainNavbar");
-        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height()/2);
-      })
-    })
   }
 
+  isWhite(rowIdx, colIdx) {
+    const state = this.getState(rowIdx, colIdx);
+    // console.log('isWhite: ' + state + ', b: ' + (state === 'white'));
+    return state === 'white';
+  }
+  isBlack(rowIdx, colIdx) {
+    const state = this.getState(rowIdx, colIdx);
+    // console.log('isBlack: ' + state + ', b: ' + (state === 'black'));
+    return state === 'black';
+  }
+  getState(rowIdx, colIdx): State {
+    const stone = this.board.get(rowIdx, colIdx);
+    if (stone === null) {
+      return null;
+    }
+    return stone.state;
+  }
+
+  userPutStone(rowIdx, colIdx) {
+    const stone = new Stone(rowIdx, colIdx, this.state);
+    const r = this.board.put(stone);
+    if (r === null) {
+      this.nextState();
+    }
+  }
+
+  private nextState() {
+    this.state = (this.state === 'white') ? 'black' : 'white';
+  }
+
+  simulate() {
+    const simulator = new OthelloSimulator();
+    simulator.start();
+  }
 }
