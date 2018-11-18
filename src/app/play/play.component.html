@@ -4,6 +4,12 @@
     </div>
     <div *ngIf="state === 'white'">Next: <img height="21" width="21" src='../../assets/imgs/white-circle.png'><br/></div>
     <div *ngIf="state === 'black'">Next: <img height=" 21" width="21" src='../../assets/imgs/black-circle.png'><br /></div>
+    <div>
+        <img height="21" width="21" src='../../assets/imgs/white-circle.png'>{{board.number_of_white}}
+    </div>
+    <div>
+        <img height="21" width="21" src='../../assets/imgs/black-circle.png'>{{board.number_of_black}}
+    </div>
     <table class="grid">
         <tr class="row" *ngFor="let rowIdx of [0, 1, 2, 3, 4, 5, 6, 7];">
             <td class="box" *ngFor="let colIdx of [0, 1, 2, 3, 4, 5, 6, 7];">

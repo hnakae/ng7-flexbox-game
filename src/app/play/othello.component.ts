@@ -110,6 +110,7 @@ export class Board {
     } else {
       this.number_of_black += 1;
     }
+    this.number_of_stones +1;
     // turn neibouring stones.
     this.flip(rowIdx, colIdx, state, flipMap);
     if (this.number_of_stones >= 8*8) {
@@ -145,6 +146,7 @@ export class Board {
     let nci = colIdx;
     let flip_count = 0;
     let foundOpposite = false;
+    console.log(`... ${rowIdx}, ${colIdx}`);
     while (true) {
       nri += ri;
       nci += ci;
@@ -156,23 +158,30 @@ export class Board {
         return;
       }
       if (!foundOpposite) {
-        if (stone.state != state) {
-          foundOpposite = true;
-        }
-      } else {
         if (stone.state == state) {
           return;
         }
+        foundOpposite = true;
+      } else {
+        if (stone.state == state) {
+          break;
+        }
       }
+      // flip!
       stone.state = state;
       flip_count += 1;
+      // console.log('flip_count: ' + flip_count);
     }
     if (flip_count > 0) {
+      // console.log(`1 ... W: ${this.number_of_white}, B: ${this.number_of_black}`);
       if (state === 'white') {
         this.number_of_white += flip_count;
+        this.number_of_black -= flip_count;
       } else {
         this.number_of_black += flip_count;
+        this.number_of_white -= flip_count;
       }
+      // console.log(`2 ...  W: ${this.number_of_white},B:  ${this.number_of_black}`);
     }
   }
 
@@ -227,6 +236,8 @@ export class Board {
       if (!foundOpposite) {
         if (stone.state != state) {
           foundOpposite = true;
+        } else {
+          return false;
         }
       } else {
         if (stone.state == state) {
