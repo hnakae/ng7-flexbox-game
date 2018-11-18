@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
 class Cell {
-  constructor(public rowIdx, public colIdx){
-  }
-
+  constructor(public rowIdx, public colIdx){  }
 }
 
 @Component({
