@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
 class Cell {
-  constructor(public rowIdx, public colIdx){  }
+  constructor(public rowIdx, public colIdx){ 
+
+  }
 }
 
 @Component({
@@ -55,7 +57,14 @@ export class PlayComponent implements OnInit {
 
       $("div.inner").click(function () {
         if ($(this).text() == "" && play) {
-          //Ternary Operator USE TOGGLECLASS FOR THE TOGGLE FUNCTION
+          //----MAKE/USE THESE FUNCTIONS, NO TYPESCRIPT NO CLASSES JUST JQUERY
+          //CHECK IF ADJACENT IS OPPOSITE COLOR
+            //CHECK LEFT, RIGHT, UP, DOWN, +- 1,X  +- 1,Y
+          //CHECK IF PINCHED
+            //IF CLICK ON FRESH TILE ADJACENT, CHECK IF THAT TILE IS 
+            //ADJACENT TO CLICK COLOR
+              //IF SO, FLIP ALL THAT ARE PINCHED
+        
           (((move % 2) == 1) ? $(this).toggleClass("black") : $(this).toggleClass("white"));
           move++;
           
