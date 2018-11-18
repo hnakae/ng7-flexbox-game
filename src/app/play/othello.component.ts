@@ -1,29 +1,40 @@
+//
+// othello.component.ts
+//
 export type State = 'black' | 'white';
 
 export class Stone {
   constructor(public rowIdx, public colIdx, public state: State = null){ 
   }
+  clone() {
+    return new Stone(this.rowIdx, this.colIdx, this.state);
+  }
   toString() {
     return `state: ${this.state}, rowIdx: ${this.rowIdx}, colIdx: ${this.colIdx}`;
   }
 }
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+
 export type Result = -1 | 0 | 1;
 
-export class Step {
-  constructor(
-    public rowIdx: number, public colIdx: number,
-    public state: State, public done = false) {
-  }
-}
-
 export class Board {
+
+  private static _loopIndexes = [
+    { ri: 0, ci: 1 },
+    { ri: 0, ci: -1 },
+    { ri: 1, ci: 0 },
+    { ri: -1, ci: 0 },
+
+    { ri: 1, ci: 1 },
+    { ri: 1, ci: -1 },
+    { ri: -1, ci: 1 },
+    { ri: -1, ci: -1 },
+  ];
+
   board: Stone[][];
   number_of_stones = 0;
   number_of_white = 0;
   number_of_black = 0;
+  isGameOver: boolean = false;
 
   constructor() {
     const board = [];
@@ -42,11 +53,30 @@ export class Board {
     this.init();
   }
 
+  isFirstStone() {
+    return this.number_of_stones === 5;
+  }
+
   init() {
+    this.isGameOver = false;
+    this.number_of_stones = 4;
+    this.number_of_white = 2;
+    this.number_of_black = 2;
+    for (let ridx = 0; ridx < 8; ridx++) {
+      for (let cidx = 0; cidx < 8; cidx++) {
+        this.board[ridx][cidx] = null;
+      }
+    }
     this.initStone(3, 3, 'black');
     this.initStone(4, 4, 'black');
     this.initStone(3, 4, 'white');
     this.initStone(4, 3, 'white');
+  }
+
+  gameInfo() {
+    const winner = (this.number_of_white > this.number_of_black) ? 'white' 
+    : (this.number_of_white < this.number_of_black)?'black': 'draw';
+    return `${this.isGameOver}, winner: ${winner}, white: ${this.number_of_white}, black: ${this.number_of_black}`;
   }
 
   initStone(rowIdx, colIdx, state: State) {
@@ -63,11 +93,11 @@ export class Board {
       throw new Error('already game over');
     }
     let stone = this._find(rowIdx, colIdx);
-    console.log(`>>> ${rowIdx}, ${colIdx}, ${JSON.stringify(stone)}`);
     if (stone) {
       throw new Error('already exist!');
     }
-    if (!this.checkAdjacentStones(rowIdx, colIdx, state)) {
+    const flipMap = this.checkAdjacentStones(rowIdx, colIdx, state);
+    if (flipMap === null) {
       throw new Error('invalid location no adjacentStones');
     }
 
@@ -81,41 +111,40 @@ export class Board {
       this.number_of_black += 1;
     }
     // turn neibouring stones.
-    this.flip(rowIdx, colIdx, state);
+    this.flip(rowIdx, colIdx, state, flipMap);
     if (this.number_of_stones >= 8*8) {
+      this.isGameOver = true;
       return (this.number_of_white > this.number_of_black) ? 1 
       : ((this.number_of_white === this.number_of_black)?0:(-1));
     }
     return null;
   }
 
-  isValidLocation(rowIdx: number, colIdx: number, state: State): boolean {
+  isValidLocation(rowIdx: number, colIdx: number, state: State) {
     if (this.number_of_stones == 8 * 8) {
-      return false;
+      return null;
     }
-    let stone = this._find(rowIdx, colIdx);
+    let stone = this.get(rowIdx, colIdx);
     if (stone) {
-      return false;
+      return null;
     }
-    if (!this.checkAdjacentStones(rowIdx, colIdx, state)) {
-      return false;
-    }
-    return true;
+    return this.checkAdjacentStones(rowIdx, colIdx, state);
   }
 
-  flip(rowIdx: number, colIdx: number, state: State) {
-    for (let ri of [-1, 1]) {
-      for (let ci of [-1, 1]) {
-        this.single_direction_flip(rowIdx, colIdx, ri, ci, state);
+  flip(rowIdx: number, colIdx: number, state: State, flipMap) {
+    for (const p of Board._loopIndexes) {
+      const name = p.ri + ":" + p.ci;
+      if (flipMap[name]) {
+        this.single_direction_flip(rowIdx, colIdx, p.ri, p.ci, state);
       }
     }
-    return false;
   }
 
   single_direction_flip(rowIdx: number, colIdx: number, ri: number, ci: number, state: State) {
     let nri = rowIdx;
     let nci = colIdx;
     let flip_count = 0;
+    let foundOpposite = false;
     while (true) {
       nri += ri;
       nci += ci;
@@ -126,10 +155,16 @@ export class Board {
       if (!stone) {
         return;
       }
-      if (stone.state === state) {
-        return;
+      if (!foundOpposite) {
+        if (stone.state != state) {
+          foundOpposite = true;
+        }
+      } else {
+        if (stone.state == state) {
+          return;
+        }
       }
-      stone.state = (state === 'black') ? 'white' :'black';
+      stone.state = state;
       flip_count += 1;
     }
     if (flip_count > 0) {
@@ -159,14 +194,20 @@ export class Board {
   }
 
   checkAdjacentStones(rowIdx: number, colIdx: number, state: State) {
-    for (let ri of [-1, 1]) {
-      for (let ci of [-1, 1]) {
-        if (this.existOppositeState(rowIdx, colIdx, ri, ci, state)) {
-          return true;
-        }
+    const flipMap = {};
+    let ok = false;
+    for (const p of Board._loopIndexes) {
+      const b = this.existOppositeState(rowIdx, colIdx, p.ri, p.ci, state);
+      if (b) {
+        ok = true;
       }
+      const name = p.ri + ":" + p.ci;
+      flipMap[name] = b;
     }
-    return false;
+    if (ok) {
+      return flipMap;
+    }
+    return null;
   }
 
   existOppositeState(rowIdx: number, colIdx: number, ri, ci, state: State) {
@@ -183,103 +224,16 @@ export class Board {
       if (!stone) {
         return false;
       }
-
       if (!foundOpposite) {
-        if (stone.state !== state) {
+        if (stone.state != state) {
           foundOpposite = true;
         }
       } else {
-        if (stone.state === state) {
+        if (stone.state == state) {
           return true;
         }
       }
     }
     return false;
-  }
-
-}
-
-export class OthelloSimulator {
-  board: Board;
-  history: Stone[] = [];
-  steps: Step[];
-
-  constructor() {
-    this.board = new Board();
-  }
-
-  start() {
-    this.steps = this.getRandomSteps();
-    let state: State = 'white';
-    while (true) {
-      const stone: Stone = this.getStone(state);
-      if (!stone) {
-        // game over
-        break;
-      }
-      const result = this.board.put(stone);
-      this.history.push(stone);
-      state = this.nextState(state); 
-      if (result !== null) {
-        console.log('game over: result: '+result);
-        break;
-      }
-    }
-    this.showHistory();
-  }
-
-  nextState(state: State) {
-    return (state === 'white') ? 'black' : 'white';
-  }
-
-  getStone(state: State) {
-    for (const step of this.steps) {
-      if (step.done) {
-        continue;
-      }
-      if (!this.board.isValidLocation(step.rowIdx, step.colIdx, step.state)) {
-        continue;
-      }
-      step.done = true;
-      return new Stone(step.rowIdx, step.colIdx, step.state);
-    }
-    return null;
-  }
-
-  getRandomSteps() {
-    const steps: Step[] = [];
-    let counter = 4;
-    let state: State = 'white';
-    while (true) {
-      if (counter >= 64) {
-        break;
-      }
-      const ridx = getRandomInt(8);
-      const cidx = getRandomInt(8);
-      if ((ridx === 3 || ridx === 4) && ((cidx === 3 || cidx === 4))) {
-        continue;
-      }
-
-      // if already used?
-      for (const step of steps) {
-        if (step.rowIdx === ridx && step.colIdx === cidx) {
-          continue;
-        } else {
-          steps.push(new Step(ridx, cidx, state));
-          state = this.nextState(state);
-          counter += 1;
-        }
-      }
-    }
-    return steps;
-  }
-
-  showHistory() {
-    console.log('history:');
-    let n = 0;
-    for (const stone of this.history) {
-      console.log(`[${n}] ${stone.toString()}`);
-      n ++;
-    }
   }
 }

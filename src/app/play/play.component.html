@@ -2,12 +2,15 @@
     <div class="header">
         <h1 class="text-center display-4">{{title}}</h1>
     </div>
+    <div *ngIf="state === 'white'">Next: <img height="21" width="21" src='../../assets/imgs/white-circle.png'><br/></div>
+    <div *ngIf="state === 'black'">Next: <img height=" 21" width="21" src='../../assets/imgs/black-circle.png'><br /></div>
     <table class="grid">
         <tr class="row" *ngFor="let rowIdx of [0, 1, 2, 3, 4, 5, 6, 7];">
             <td class="box" *ngFor="let colIdx of [0, 1, 2, 3, 4, 5, 6, 7];">
                 <div class="inner" (click)="userPutStone(rowIdx, colIdx)">
-                    <div *ngIf="isWhite(rowIdx, colIdx)">W</div>
-                    <div *ngIf="isBlack(rowIdx, colIdx)">B</div>
+                    <div *ngIf="isWhite(rowIdx, colIdx)" ><img height="42" width="42" src='../../assets/imgs/white-circle.png'></div>
+                    <div *ngIf="isBlack(rowIdx, colIdx)" ><img height="42" width="42" src='../../assets/imgs/black-circle.png'></div>
+                    <div *ngIf="isEmpty(rowIdx, colIdx)"></div>
                 </div>
             </td>
         </tr>
@@ -16,8 +19,9 @@
 
 <div class="buttons">
     <div class="d-flex justify-content-center align-items-end">
-        <button class="btn btn-info btn-lg " (click)="simulate()">simulate</button>
-        <button class="btn btn-info btn-lg reset">Reset</button>
-        <button class="btn btn-info btn-lg changeColors">Change Colors</button>
+        <button class="btn btn-info btn-lg " (click)="simulate()">Simulate</button>
+        <button class="btn btn-info btn-lg reset" (click)="replay()">Replay</button><!-- <button class="btn btn-info btn-lg changeColors">Change Colors</button> -->
+        <button class="btn btn-info btn-lg reset" (click)="next()">Next</button><!-- <button class="btn btn-info btn-lg changeColors">Change Colors</button> -->
+        <button class="btn btn-info btn-lg reset" (click)="reset()">Reset</button>  
     </div>
 </div>
